@@ -30,10 +30,10 @@ If you are interested in writing scripts in a diferent editor and then export th
 (STL, IGES, STEP), you can execute the following command in your terminal:
 
 ```
-FreeCADCmd.exe your_script_name.py /directory
+FreeCADCmd.exe your_script.py /your_directory
 ```
 
 Where:
  + `FreeCADCmd.exe` is a executable that you have to find in the FreeCAD folder. You have to add that directory to your system path.
- + `your_script_name.py` is your script
- + `/directory` is the directory where is placed `your_script_name.py`. If your're running the script directly in `/directory` you can just ommit this last argument.
+ + `your_script.py` is your script.
+ + `/your_directory` is the directory where is placed `your_script.py`. If your're running the script directly in `/your_directory` you can just ommit this last argument.
