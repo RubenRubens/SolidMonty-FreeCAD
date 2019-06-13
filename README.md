@@ -1,1 +1,39 @@
 # FreeCAD Builder for Monthy's CAD
+
+This is a FreeCAD implementation for writing your Monthy's
+CAD scripts. I hope you will find it useful.
+
+## If FreeCAD alredy has a python API... why someone will use the Monty's Builder?
+
+Writing scripts in FreeCAD could be a little bit meshy. Gratefully Monty's make
+things simpler, more human readable, more natural, more... _better_. And also keeps the
+geometry parametric (that's something that FreeCAD native scripting dosent always do).
+Nevertheless, if youre into scripting in FreeCAD there are other alternatives like [cadquery]
+(https://github.com/dcowden/cadquery) that may help.
+
+## Installation
+
+1. Install [FreeCAD](https://www.freecadweb.org/downloads.php).
+2. Download this folder into your computer.
+3. Now add that directory to your PYTHONPATH.
+
+That's it boys and girls, now you can start FreeCAD and run your scripts by
+importing the library.
+
+```python
+from Monthys_FreeCAD import *
+
+# Your code here
+```
+
+If you are interested in writing scripts in a diferent editor and then export the results
+(STL, IGES, STEP), you can execute the following command in your terminal:
+
+```
+FreeCADCmd.exe your_script_name.py /directory
+```
+
+Where:
+    + `FreeCADCmd.exe` is a executable that you have to find in the FreeCAD folder. You have to add that directory to your system path.
+    + `your_script_name.py` is your script
+    + `/directory` is the directory where is placed `your_script_name.py`. If your're running the script directly in `/directory` you can just ommit this last argument.
