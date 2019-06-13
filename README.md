@@ -5,11 +5,11 @@ CAD scripts. I hope you will find it useful.
 
 ## If FreeCAD alredy has a python API... why someone will use the Monty's Builder?
 
-Writing scripts in FreeCAD could be a little bit meshy. Gratefully Monty's make
-things simpler, more human readable, more natural, more... _better_. And also keeps the
-geometry parametric (that's something that FreeCAD native scripting dosent always do).
-Nevertheless, if youre into scripting in FreeCAD there are other alternatives like [cadquery]
-(https://github.com/dcowden/cadquery) that may help.
+Writing scripts in FreeCAD could be a little bit messy. Thankfully, Monty's make
+things simpler, more human readable and more natural. And also keeps the
+geometry parametric (that's something that FreeCAD native scripting doesn't always do).
+Nevertheless, if you're into scripting in FreeCAD there are others alternatives like
+[cadquery](https://github.com/dcowden/cadquery) that may help.
 
 ## Installation
 
@@ -17,7 +17,7 @@ Nevertheless, if youre into scripting in FreeCAD there are other alternatives li
 2. Download this folder into your computer.
 3. Now add that directory to your PYTHONPATH.
 
-That's it boys and girls, now you can start FreeCAD and run your scripts by
+That's it boys and girls. Now you can start FreeCAD and run your scripts by
 importing the library.
 
 ```python
@@ -34,6 +34,6 @@ FreeCADCmd.exe your_script_name.py /directory
 ```
 
 Where:
-    + `FreeCADCmd.exe` is a executable that you have to find in the FreeCAD folder. You have to add that directory to your system path.
-    + `your_script_name.py` is your script
-    + `/directory` is the directory where is placed `your_script_name.py`. If your're running the script directly in `/directory` you can just ommit this last argument.
+ + `FreeCADCmd.exe` is a executable that you have to find in the FreeCAD folder. You have to add that directory to your system path.
+ + `your_script_name.py` is your script
+ + `/directory` is the directory where is placed `your_script_name.py`. If your're running the script directly in `/directory` you can just ommit this last argument.
