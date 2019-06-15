@@ -40,7 +40,7 @@ class cube(parts):
     Creates a cube of size = [lenght, wide, height]. By default it is not centered.
     size can be just a number to set equal the dimensions.
     '''
-    def __init__(self, size=1, center=False):
+    def __init__(self, size, center = False):
         if isinstance(size, (float, int)):
             size = [size, size, size]
         self.identifier = "Part" + str(Encap.part_counter())
@@ -67,7 +67,9 @@ class cylinder(parts):
     '''
     Creates a cylinder of radius r and height h. It's center can be placed at the origin.
     '''
-    def __init__(self, r = 1, h = 1, center = False):
+    def __init__(self, r, h, d = None, center = False):
+        if d != None:
+            r = d / 2
         self.identifier = "Part" + str(Encap.part_counter())
         new_object = FreeCAD.ActiveDocument.addObject("Part::Feature", self.identifier)
         if center == False:
@@ -81,7 +83,7 @@ class cone(parts):
     Creates a cone given a height and two radius. If the second of the radius is omited it
     is set to 0. It's center can be placed at the origin.
     '''
-    def __init__(self, h = 1, r1 = 1, r2 = 0, center = False):
+    def __init__(self, h, r1, r2 = 0, center = False):
         self.identifier = "Part" + str(Encap.part_counter())
         new_object = FreeCAD.ActiveDocument.addObject("Part::Feature", self.identifier)
         if center == False:
@@ -256,21 +258,21 @@ def translate(vector):
     return inner
 
 
-def rotate(axis, angle=None, axis_pos = [0, 0, 0]):
+def rotate(axis, angle, axis_pos = [0, 0, 0]):
     if axis == 'X':
         axis = [1, 0, 0]
     elif axis == 'Y':
         axis = [0, 1, 1]
-    elif axis == 'Z':
-        axis == [0, 0, 1]
+    elif axis == "Z":
+        axis = [0, 0, 1]
 
     def inner(f):
         object_name = f.identifier
-        if angle == None:
-            pass
-        else:
-            FreeCAD.ActiveDocument.getObject(object_name).Placement = FreeCAD.Placement(FreeCAD.Vector(0,0,0), FreeCAD.Rotation(FreeCAD.Vector(axis[0], axis[1], axis[2]), angle), FreeCAD.Vector(axis_pos[0], axis_pos[1], axis_pos[2]))
-            FreeCAD.ActiveDocument.recompute()
+        axis_pos[0] = axis_pos[0] - FreeCAD.ActiveDocument.getObject(object_name).Placement.Base.x
+        axis_pos[1] = axis_pos[1] - FreeCAD.ActiveDocument.getObject(object_name).Placement.Base.y
+        axis_pos[2] = axis_pos[2] - FreeCAD.ActiveDocument.getObject(object_name).Placement.Base.z
+        FreeCAD.ActiveDocument.getObject(object_name).Placement = FreeCAD.Placement(FreeCAD.Vector(0,0,0), FreeCAD.Rotation(FreeCAD.Vector(axis[0], axis[1], axis[2]), angle), FreeCAD.Vector(axis_pos[0], axis_pos[1], axis_pos[2]))
+        FreeCAD.ActiveDocument.recompute()
         return parts(object_name)
     return inner
 
