@@ -6,7 +6,7 @@ CAD scripts. I hope you will find it useful.
 ## If FreeCAD alredy has a python API... why someone will use the Monty's Builder?
 
 Writing scripts in FreeCAD could be a little bit messy. Thankfully, Monty's make
-things simpler, more human readable and more natural. And also keeps the
+things simpler, more human readable and natural. And also keeps the
 geometry parametric (that's something that FreeCAD native scripting doesn't always do).
 Nevertheless, if you're into scripting in FreeCAD there are others alternatives like
 [cadquery](https://github.com/dcowden/cadquery) that may help.
