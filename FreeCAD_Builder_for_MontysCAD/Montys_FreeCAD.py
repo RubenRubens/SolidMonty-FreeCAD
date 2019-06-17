@@ -359,53 +359,6 @@ def export(frmt = "stl", name = "X", dir = "cwd"):
 
 
 
-# def export_STL(objects, name = "X"):
-#     """
-#     Exports a STL file of an object (or a list of objects) to the current working directory.
-#     name sets the STL file name.
-#     """
-#     if isinstance(objects, (list, tuple)):
-#         objs = []
-#         for obj in objects:
-#             objs.append(FreeCAD.getDocument("test").getObject(obj.identifier))
-#     else:
-#         objs = [FreeCAD.getDocument("test").getObject(objects.identifier)]
-#     Mesh.export(objs, name + ".stl")
-
-
-# def export_IGES(objects, name = "X"):
-#     if isinstance(objects, (list, tuple)):
-#         objs = []
-#         for obj in objects:
-#             objs.append(FreeCAD.getDocument("test").getObject(obj.identifier))
-#     else:
-#         objs = [FreeCAD.getDocument("test").getObject(objects.identifier)]
-#     Part.export(objs, name + ".igs")
-
-
-# def export_STEP(objects, name = "X"):
-#     if isinstance(objects, (list, tuple)):
-#         objs = []
-#         for obj in objects:
-#             objs.append(FreeCAD.getDocument("test").getObject(obj.identifier))
-#     else:
-#         objs = [FreeCAD.getDocument("test").getObject(objects.identifier)]
-#     Part.export(objs, name + ".step")
-
-
-# def export_SVG(objects, name = "X"): # Does not work.
-#     import importSVG
-
-#     if isinstance(objects, (list, tuple)):
-#         objs = []
-#         for obj in objects:
-#             objs.append(FreeCAD.getDocument("test").getObject(obj.identifier))
-#     else:
-#         objs = [FreeCAD.getDocument("test").getObject(objects.identifier)]
-#     importSVG.export(objs, name + ".svg")
-
-
-
 
 # Save the FreeCAD Document
 
