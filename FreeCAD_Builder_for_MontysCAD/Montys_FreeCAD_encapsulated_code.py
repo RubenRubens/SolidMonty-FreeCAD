@@ -17,3 +17,9 @@ def sketch_counter():
     global s_counter
     s_counter += 1
     return s_counter
+
+c_counter = 0
+def copy_counter():
+    global c_counter
+    c_counter += 1
+    return c_counter

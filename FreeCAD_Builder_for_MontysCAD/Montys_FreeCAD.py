@@ -8,9 +8,9 @@ import Montys_FreeCAD_encapsulated_code as Encap
 
 # FreeCAD Document Creation
 
-FreeCAD.newDocument('test')
-FreeCAD.setActiveDocument('test')
-FreeCAD.ActiveDocument = FreeCAD.getDocument('test')
+FreeCAD.newDocument("test")
+FreeCAD.setActiveDocument("test")
+FreeCAD.ActiveDocument = FreeCAD.getDocument("test")
 
 
 
@@ -33,13 +33,27 @@ class parts:
 
 
 
+# Cloning an object
+
+class copy(parts):
+    def __init__(self, obj):
+        self.identifier = "Copy" + str(Encap.copy_counter())
+        FreeCAD.ActiveDocument.addObject("PartDesign::FeatureBase", self.identifier)
+        FreeCAD.ActiveDocument.getObject(self.identifier).BaseFeature = FreeCAD.ActiveDocument.getObject(obj.identifier)
+        FreeCAD.ActiveDocument.getObject(self.identifier).Placement = FreeCAD.ActiveDocument.getObject(obj.identifier).Placement
+        FreeCAD.ActiveDocument.getObject(self.identifier).setEditorMode("Placement",0)
+        FreeCAD.ActiveDocument.recompute()
+
+
+
+
 # 3D primitives
 
 class cube(parts):
-    '''
+    """
     Creates a cube of size = [lenght, wide, height]. By default it is not centered.
     size can be just a number to set equal the dimensions.
-    '''
+    """
     def __init__(self, size, center = False):
         if isinstance(size, (float, int)):
             size = [size, size, size]
@@ -52,9 +66,9 @@ class cube(parts):
 
 
 class sphere(parts):
-    '''
+    """
     Creates a sphere of radius r at the origin.
-    '''
+    """
     def __init__(self, r = 1, d = None):
         if d != None:
             r = d / 2
@@ -64,9 +78,9 @@ class sphere(parts):
 
 
 class cylinder(parts):
-    '''
-    Creates a cylinder of radius r and height h. It's center can be placed at the origin.
-    '''
+    """
+    Creates a cylinder of radius r and height h. It"s center can be placed at the origin.
+    """
     def __init__(self, r, h, d = None, center = False):
         if d != None:
             r = d / 2
@@ -79,10 +93,10 @@ class cylinder(parts):
 
 
 class cone(parts):
-    '''
+    """
     Creates a cone given a height and two radius. If the second of the radius is omited it
-    is set to 0. It's center can be placed at the origin.
-    '''
+    is set to 0. It"s center can be placed at the origin.
+    """
     def __init__(self, h, r1, r2 = 0, center = False):
         self.identifier = "Part" + str(Encap.part_counter())
         new_object = FreeCAD.ActiveDocument.addObject("Part::Feature", self.identifier)
@@ -100,8 +114,8 @@ class circle:
     def __init__(self,  r, d=None):
         if d != None:
             r = d * 0.5
-        self.identifier = 'Skectch' + str(Encap.sketch_counter())
-        new_object = FreeCAD.ActiveDocument.addObject('Sketcher::SketchObject', self.identifier)
+        self.identifier = "Skectch" + str(Encap.sketch_counter())
+        new_object = FreeCAD.ActiveDocument.addObject("Sketcher::SketchObject", self.identifier)
         new_object.addGeometry(Part.Circle(FreeCAD.Vector(0,0,0), FreeCAD.Vector(0,0,1), r))
 
 
@@ -117,7 +131,7 @@ def arc(center, start_point, end_point, clockwise=False):
     if (start_point[0] - center[0]) ** 2 + (start_point[1] - center[1]) ** 2 == (end_point[0] - center[0]) ** 2 + (end_point[1] - center[1]) ** 2:
         R = ((start_point[0] - center[0]) ** 2 + (start_point[1] - center[1]) ** 2) ** 0.5
     else:
-        raise Exception('The 3 points do not form an arc.')
+        raise Exception("The 3 points do not form an arc.")
     middle_point = [R * math.cos(omega), R * math.sin(omega)]
     
     # Points are overwriten as FreeCAD objects
@@ -129,8 +143,8 @@ def arc(center, start_point, end_point, clockwise=False):
 
 class line:
     def __init__(self, start_point, end_point):
-        self.identifier = 'Skectch' + str(Encap.sketch_counter())
-        new_object = FreeCAD.ActiveDocument.addObject('Sketcher::SketchObject', self.identifier)
+        self.identifier = "Skectch" + str(Encap.sketch_counter())
+        new_object = FreeCAD.ActiveDocument.addObject("Sketcher::SketchObject", self.identifier)
         start_point = Base.Vector(start_point[0], start_point[1], start_point[2])
         end_point = Base.Vector(end_point[0], end_point[1], end_point[2])
         new_object.addGeometry(Part.LineSegment(start_point, end_point))
@@ -139,8 +153,8 @@ class line:
 
 class polyline:
     def __init__(self, points, closed=True):
-        self.identifier = 'Skectch' + str(Encap.sketch_counter())
-        new_object = FreeCAD.ActiveDocument.addObject('Sketcher::SketchObject', self.identifier)
+        self.identifier = "Skectch" + str(Encap.sketch_counter())
+        new_object = FreeCAD.ActiveDocument.addObject("Sketcher::SketchObject", self.identifier)
         for i in range(len(points) - 1):
             start_point = Base.Vector(points[0 + i][0], points[0 + i][1], 0)
             end_point = Base.Vector(points[1 + i][0], points[1 + i][1], 0)
@@ -163,8 +177,8 @@ class spline:
         else:
             C = False
 
-        self.identifier = 'Sketch' + str(Encap.sketch_counter())
-        FreeCAD.ActiveDocument.addObject('Sketcher::SketchObject', self.identifier)
+        self.identifier = "Sketch" + str(Encap.sketch_counter())
+        FreeCAD.ActiveDocument.addObject("Sketcher::SketchObject", self.identifier)
         List = []
         for point in points:
             List.append(FreeCAD.Vector(point[0], point[1], 0))
@@ -179,7 +193,7 @@ class spline:
 def extrude(h=1):
     def inner(f):
         sketch_identifier = f.identifier
-        part_identifier = 'Part' + str(Encap.part_counter())
+        part_identifier = "Part" + str(Encap.part_counter())
         new_object = FreeCAD.ActiveDocument.addObject("Part::Extrusion", part_identifier)
         new_object.Base = FreeCAD.ActiveDocument.getObject(sketch_identifier)
         new_object.DirMode = "Normal"
@@ -197,16 +211,16 @@ def extrude(h=1):
 
 
 def revolve(axis,  angle=360):
-    if axis == 'X':
+    if axis == "X":
         axis = [1, 0, 0]
-    elif axis == 'Y':
+    elif axis == "Y":
         axis = [0, 1, 1]
-    elif axis == 'Z':
+    elif axis == "Z":
         axis == [0, 0, 1]
 
     def inner(f):
         sketch_identifier = f.identifier
-        part_identifier = 'Part' + str(Encap.part_counter())
+        part_identifier = "Part" + str(Encap.part_counter())
         new_object = FreeCAD.ActiveDocument.addObject("Part::Revolution", part_identifier)
         new_object.Source = FreeCAD.ActiveDocument.getObject(sketch_identifier)
         new_object.Axis = (axis[0], axis[1], axis[2])
@@ -220,8 +234,8 @@ def revolve(axis,  angle=360):
 
 class loft(parts):
     def __init__(self, sections):
-        self.identifier = 'Part' + str(Encap.part_counter())
-        new_object = FreeCAD.ActiveDocument.addObject('Part::Loft', self.identifier)
+        self.identifier = "Part" + str(Encap.part_counter())
+        new_object = FreeCAD.ActiveDocument.addObject("Part::Loft", self.identifier)
         List = []
         for section in sections:
             List.append(FreeCAD.ActiveDocument.getObject(section.identifier))
@@ -234,8 +248,8 @@ class loft(parts):
 
 class sweep(parts):
     def __init__(self, sketch, path):
-        self.identifier = 'Part' + str(Encap.part_counter())
-        new_object = FreeCAD.ActiveDocument.addObject('Part::Sweep', self.identifier)
+        self.identifier = "Part" + str(Encap.part_counter())
+        new_object = FreeCAD.ActiveDocument.addObject("Part::Sweep", self.identifier)
         new_object.Sections = [FreeCAD.ActiveDocument.getObject(sketch.identifier)]
         new_object.Spine = FreeCAD.ActiveDocument.getObject(path.identifier)
         new_object.Solid = True
@@ -249,31 +263,31 @@ class sweep(parts):
 
 def translate(vector):
     def inner(f):
-        object_name = f.identifier
-        FreeCAD.ActiveDocument.getObject(object_name).Placement.Base.x = vector[0]
-        FreeCAD.ActiveDocument.getObject(object_name).Placement.Base.y = vector[1]
-        FreeCAD.ActiveDocument.getObject(object_name).Placement.Base.z = vector[2]
+        copy_object = copy(f)
+        FreeCAD.ActiveDocument.getObject(copy_object.identifier).Placement.Base.x = vector[0]
+        FreeCAD.ActiveDocument.getObject(copy_object.identifier).Placement.Base.y = vector[1]
+        FreeCAD.ActiveDocument.getObject(copy_object.identifier).Placement.Base.z = vector[2]
         FreeCAD.ActiveDocument.recompute()
-        return parts(object_name)
+        return copy_object
     return inner
 
 
 def rotate(axis, angle, axis_pos = [0, 0, 0]):
-    if axis == 'X':
+    if axis == "X":
         axis = [1, 0, 0]
-    elif axis == 'Y':
+    elif axis == "Y":
         axis = [0, 1, 1]
     elif axis == "Z":
         axis = [0, 0, 1]
 
     def inner(f):
-        object_name = f.identifier
-        axis_pos[0] = axis_pos[0] - FreeCAD.ActiveDocument.getObject(object_name).Placement.Base.x
-        axis_pos[1] = axis_pos[1] - FreeCAD.ActiveDocument.getObject(object_name).Placement.Base.y
-        axis_pos[2] = axis_pos[2] - FreeCAD.ActiveDocument.getObject(object_name).Placement.Base.z
-        FreeCAD.ActiveDocument.getObject(object_name).Placement = FreeCAD.Placement(FreeCAD.Vector(0,0,0), FreeCAD.Rotation(FreeCAD.Vector(axis[0], axis[1], axis[2]), angle), FreeCAD.Vector(axis_pos[0], axis_pos[1], axis_pos[2]))
+        copy_object = copy(f)
+        axis_pos[0] = axis_pos[0] - FreeCAD.ActiveDocument.getObject(copy_object.identifier).Placement.Base.x
+        axis_pos[1] = axis_pos[1] - FreeCAD.ActiveDocument.getObject(copy_object.identifier).Placement.Base.y
+        axis_pos[2] = axis_pos[2] - FreeCAD.ActiveDocument.getObject(copy_object.identifier).Placement.Base.z
+        FreeCAD.ActiveDocument.getObject(copy_object.identifier).Placement = FreeCAD.Placement(FreeCAD.Vector(0,0,0), FreeCAD.Rotation(FreeCAD.Vector(axis[0], axis[1], axis[2]), angle), FreeCAD.Vector(axis_pos[0], axis_pos[1], axis_pos[2]))
         FreeCAD.ActiveDocument.recompute()
-        return parts(object_name)
+        return copy_object
     return inner
 
 
@@ -282,9 +296,9 @@ def rotate(axis, angle, axis_pos = [0, 0, 0]):
 # Boolean operations
 
 class union(parts):
-    '''
+    """
     Creates a new solid out of the union of two objects.
-    '''
+    """
     def __init__(self, obj1, obj2):
         self.identifier = "Boolean" + str(Encap.boolean_counter())
         new_object = FreeCAD.ActiveDocument.addObject("Part::Fuse", self.identifier)
@@ -294,9 +308,9 @@ class union(parts):
 
 
 class intersection(parts):
-    '''
+    """
     Performs the intersection of two solids.
-    '''
+    """
     def __init__(self, obj1, obj2):
         self.identifier = "Boolean" + str(Encap.boolean_counter())
         new_object = FreeCAD.ActiveDocument.addObject("Part::Common", self.identifier)
@@ -306,9 +320,9 @@ class intersection(parts):
 
 
 class difference(parts):
-    '''
+    """
     The first object is the one to cut and the second is the cutting tool.
-    '''
+    """
     def __init__(self, obj1, obj2):
         self.identifier = "Boolean" + str(Encap.boolean_counter())
         new_object = FreeCAD.ActiveDocument.addObject("Part::Cut", self.identifier)
@@ -321,50 +335,74 @@ class difference(parts):
 
 # Export the geometry to a CAD file
 
-def export_STL(objects, name = "X"):
-    '''
-    Exports a STL file of an object (or a list of objects) to the current working directory.
-    name sets the STL file name.
-    '''
-    if isinstance(objects, (list, tuple)):
-        objs = []
-        for obj in objects:
-            objs.append(FreeCAD.getDocument("test").getObject(obj.identifier))
+
+def export(frmt = "stl", name = "X", dir = "cwd"):
+    if dir == "cwd":
+        dir = ""
     else:
-        objs = [FreeCAD.getDocument("test").getObject(objects.identifier)]
-    Mesh.export(objs, name + ".stl")
-
-
-def export_IGES(objects, name = "X"):
-    if isinstance(objects, (list, tuple)):
+        if dir[-1] != "/":
+            dir += "/"
+    
+    def inner(*argv):
         objs = []
-        for obj in objects:
+        for obj in *argv:
             objs.append(FreeCAD.getDocument("test").getObject(obj.identifier))
-    else:
-        objs = [FreeCAD.getDocument("test").getObject(objects.identifier)]
-    Part.export(objs, name + ".igs")
+
+        if frmt == "stl":
+            Mesh.export(objs, dir + name + "." + frmt)
+        elif frmt == "obj":
+            pass
+        elif frmt == "iges":
+            Part.export(objs, name + ".igs")
+        elif frmt == "step":
+            Part.export(objs, name + ".step")
 
 
-def export_STEP(objects, name = "X"):
-    if isinstance(objects, (list, tuple)):
-        objs = []
-        for obj in objects:
-            objs.append(FreeCAD.getDocument("test").getObject(obj.identifier))
-    else:
-        objs = [FreeCAD.getDocument("test").getObject(objects.identifier)]
-    Part.export(objs, name + ".step")
+
+# def export_STL(objects, name = "X"):
+#     """
+#     Exports a STL file of an object (or a list of objects) to the current working directory.
+#     name sets the STL file name.
+#     """
+#     if isinstance(objects, (list, tuple)):
+#         objs = []
+#         for obj in objects:
+#             objs.append(FreeCAD.getDocument("test").getObject(obj.identifier))
+#     else:
+#         objs = [FreeCAD.getDocument("test").getObject(objects.identifier)]
+#     Mesh.export(objs, name + ".stl")
 
 
-def export_SVG(objects, name = "X"): # Does not work.
-    import importSVG
+# def export_IGES(objects, name = "X"):
+#     if isinstance(objects, (list, tuple)):
+#         objs = []
+#         for obj in objects:
+#             objs.append(FreeCAD.getDocument("test").getObject(obj.identifier))
+#     else:
+#         objs = [FreeCAD.getDocument("test").getObject(objects.identifier)]
+#     Part.export(objs, name + ".igs")
 
-    if isinstance(objects, (list, tuple)):
-        objs = []
-        for obj in objects:
-            objs.append(FreeCAD.getDocument("test").getObject(obj.identifier))
-    else:
-        objs = [FreeCAD.getDocument("test").getObject(objects.identifier)]
-    importSVG.export(objs, name + ".svg")
+
+# def export_STEP(objects, name = "X"):
+#     if isinstance(objects, (list, tuple)):
+#         objs = []
+#         for obj in objects:
+#             objs.append(FreeCAD.getDocument("test").getObject(obj.identifier))
+#     else:
+#         objs = [FreeCAD.getDocument("test").getObject(objects.identifier)]
+#     Part.export(objs, name + ".step")
+
+
+# def export_SVG(objects, name = "X"): # Does not work.
+#     import importSVG
+
+#     if isinstance(objects, (list, tuple)):
+#         objs = []
+#         for obj in objects:
+#             objs.append(FreeCAD.getDocument("test").getObject(obj.identifier))
+#     else:
+#         objs = [FreeCAD.getDocument("test").getObject(objects.identifier)]
+#     importSVG.export(objs, name + ".svg")
 
 
 
@@ -372,5 +410,7 @@ def export_SVG(objects, name = "X"): # Does not work.
 # Save the FreeCAD Document
 
 def save_FreeCAD(name):
-    FreeCAD.getDocument('test').saveAs(name + '.fcstd')
+    FreeCAD.getDocument("test").saveAs(name + ".fcstd")
+
+
 
