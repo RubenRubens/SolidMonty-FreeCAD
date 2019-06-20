@@ -13,7 +13,7 @@ Nevertheless, if you're into scripting in FreeCAD there are others alternatives 
 ## Installation
 
 1. Install [FreeCAD](https://www.freecadweb.org/downloads.php).
-2. Download this folder into your computer.
+2. Download [this folder](FreeCAD_Builder_for_MontysCAD) into your computer.
 3. Now add that directory to your PYTHONPATH.
 
 That's it boys and girls. Now you can start FreeCAD and run your scripts by
