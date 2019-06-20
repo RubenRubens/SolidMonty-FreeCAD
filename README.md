@@ -1,4 +1,4 @@
-# FreeCAD Builder for Monthy's CAD
+# FreeCAD Builder for Monty's CAD
 
 This is a FreeCAD implementation for writing your Monthy's
 CAD scripts. I hope you will find it useful.
@@ -6,8 +6,7 @@ CAD scripts. I hope you will find it useful.
 ## If FreeCAD alredy has a python API... why someone will use the Monty's Builder?
 
 Writing scripts in FreeCAD could be a little bit messy. Thankfully, Monty's make
-things simpler, more human readable and natural. And also keeps the
-geometry parametric (that's something that FreeCAD native scripting doesn't always do).
+things simpler, more human readable and natural.
 Nevertheless, if you're into scripting in FreeCAD there are others alternatives like
 [cadquery](https://github.com/dcowden/cadquery) that may help.
 
