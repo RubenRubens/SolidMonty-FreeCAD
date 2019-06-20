@@ -119,28 +119,6 @@ class circle:
         new_object.addGeometry(Part.Circle(FreeCAD.Vector(0,0,0), FreeCAD.Vector(0,0,1), r))
 
 
-# def arc(center, start_point, end_point, clockwise=False):
-#     if clockwise == True:
-#         (start_point, end_point) = (end_point, start_point)
-#     alpha = math.atan2(start_point[1], start_point[0])
-#     beta = math.atan2(end_point[1], end_point[0])
-#     if alpha < beta:
-#         omega = (alpha + beta) * 0.5
-#     else:
-#         omega = (alpha + beta) * 0.5 + math.pi
-#     if (start_point[0] - center[0]) ** 2 + (start_point[1] - center[1]) ** 2 == (end_point[0] - center[0]) ** 2 + (end_point[1] - center[1]) ** 2:
-#         R = ((start_point[0] - center[0]) ** 2 + (start_point[1] - center[1]) ** 2) ** 0.5
-#     else:
-#         raise Exception("The 3 points do not form an arc.")
-#     middle_point = [R * math.cos(omega), R * math.sin(omega)]
-    
-#     # Points are overwriten as FreeCAD objects
-#     start_point = Base.Vector(start_point[0], start_point[1], 0)
-#     end_point = Base.Vector(end_point[0], end_point[1], 0)
-#     middle_point = Base.Vector(middle_point[0], middle_point[1], 0)
-#     return Part.Arc(start_point, middle_point, end_point)
-
-
 class line:
     def __init__(self, start_point, end_point):
         self.identifier = "Skectch" + str(Encap.sketch_counter())
