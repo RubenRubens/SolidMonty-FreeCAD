@@ -25,14 +25,16 @@ from Monthys_FreeCAD import *
 # Your code here
 ```
 
+## How to run the FreeCAD Builder for Solid Monty in the terminal?
+
 If you are interested in writing scripts in a diferent editor and then export the results
 (STL, IGES, STEP), you can execute the following command in your terminal:
 
 ```
-FreeCADCmd.exe your_script.py /your_directory
+FreeCADCmd.exe your_directory/your_script.py
 ```
 
 Where:
  + `FreeCADCmd.exe` is a executable that you have to find in the FreeCAD folder. You have to add that directory to your system path.
  + `your_script.py` is your script.
- + `/your_directory` is the directory where is placed `your_script.py`. If your're running the script directly in `/your_directory` you can just ommit this last argument.
+ + `your_directory` is the directory where is placed `your_script.py`. If you're running the script directly in the current working directory it is not neceary to write it.

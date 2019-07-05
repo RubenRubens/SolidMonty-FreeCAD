@@ -1,7 +1,7 @@
 import FreeCAD, Part, Mesh, Draft
 from FreeCAD import Base
 import math
-import Montys_FreeCAD_encapsulated_code as Encap
+import SolidMonty_FreeCAD_encapsulated_code as Encap
 
 
 
@@ -239,12 +239,17 @@ class sweep(parts):
 
 # Rotation and Translation
 
-def translate(vector):
+def translate(vector, abs = True):
     def inner(f):
         copy_object = copy(f)
-        FreeCAD.ActiveDocument.getObject(copy_object.identifier).Placement.Base.x = vector[0]
-        FreeCAD.ActiveDocument.getObject(copy_object.identifier).Placement.Base.y = vector[1]
-        FreeCAD.ActiveDocument.getObject(copy_object.identifier).Placement.Base.z = vector[2]
+        if abs:
+            FreeCAD.ActiveDocument.getObject(copy_object.identifier).Placement.Base.x = vector[0]
+            FreeCAD.ActiveDocument.getObject(copy_object.identifier).Placement.Base.y = vector[1]
+            FreeCAD.ActiveDocument.getObject(copy_object.identifier).Placement.Base.z = vector[2]
+        else:
+            FreeCAD.ActiveDocument.getObject(copy_object.identifier).Placement.Base.x += vector[0]
+            FreeCAD.ActiveDocument.getObject(copy_object.identifier).Placement.Base.y += vector[1]
+            FreeCAD.ActiveDocument.getObject(copy_object.identifier).Placement.Base.z += vector[2]
         FreeCAD.ActiveDocument.recompute()
         return copy_object
     return inner
@@ -328,13 +333,13 @@ def export(frmt = "stl", name = "X", dir = "cwd"):
             objs.append(FreeCAD.getDocument("test").getObject(obj.identifier))
 
         if frmt == "stl":
-            Mesh.export(objs, name + ".stl")
+            Mesh.export(objs, dir + name + ".stl")
         elif frmt == "obj":
             pass
         elif frmt == "iges":
             Part.export(objs, dir + name + ".igs")
         elif frmt == "step":
-            Part.export(objs, name + ".step")
+            Part.export(objs, dir + name + ".step")
         # elif frmt == "svg":
         #     import importSVG
         #     importSVG.export(objs, name + ".svg")
@@ -343,7 +348,17 @@ def export(frmt = "stl", name = "X", dir = "cwd"):
 
 
 
-# Save the FreeCAD Document
+# Save the FreeCAD document
 
 def save_FreeCAD(name):
     FreeCAD.getDocument("test").saveAs(name + ".fcstd")
+
+
+
+
+# Debuging
+
+def position(obj):
+        print(FreeCAD.ActiveDocument.getObject(obj.identifier).Placement.Base.x)
+        print(FreeCAD.ActiveDocument.getObject(obj.identifier).Placement.Base.y)
+        print(FreeCAD.ActiveDocument.getObject(obj.identifier).Placement.Base.z)
