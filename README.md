@@ -1,11 +1,11 @@
-# FreeCAD Builder for Monty's CAD
+# FreeCAD Builder for SolidMonty
 
-This is a FreeCAD implementation for writing your Monthy's
+This is a FreeCAD implementation for writing your SolidMonty
 CAD scripts. I hope you will find it useful.
 
-## If FreeCAD alredy has a python API... why someone will use the Monty's Builder?
+## If FreeCAD alredy has a python API... why someone will use the SolidMonty Builder?
 
-Writing scripts in FreeCAD could be a little bit messy. Thankfully, Monty's make
+Writing scripts in FreeCAD could be a little bit messy. Thankfully, SolidMonty make
 things simpler, more human readable and natural.
 Nevertheless, if you're into scripting in FreeCAD there are others alternatives like
 [cadquery](https://github.com/dcowden/cadquery) that may help.
@@ -13,14 +13,14 @@ Nevertheless, if you're into scripting in FreeCAD there are others alternatives 
 ## Installation
 
 1. Install [FreeCAD](https://www.freecadweb.org/downloads.php).
-2. Download [this folder](FreeCAD_Builder_for_MontysCAD) into your computer.
+2. Download [this folder](https://github.com/RubenRubens/SolidMonty-FreeCAD/FreeCAD_Builder_for_SolidMonty) into your computer.
 3. Now add that directory to your PYTHONPATH.
 
 That's it boys and girls. Now you can start FreeCAD and run your scripts by
 importing the library.
 
 ```python
-from Monthys_FreeCAD import *
+from SolidMonty_FreeCAD import *
 
 # Your code here
 ```
